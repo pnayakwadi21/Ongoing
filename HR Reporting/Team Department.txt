@@ -1,0 +1,34 @@
+
+	       CASE WHEN PERSONNEL_HIERARCHY.STR_LONG_DESC4 ='corporate' THEN COALESCE(PERSONNEL_HIERARCHY.STR_LONG_DESC6, 
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC5, 
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC4, 
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC3, 
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC2, 
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC1)
+       ELSE COALESCE(PERSONNEL_HIERARCHY.STR_LONG_DESC4, 
+                              PERSONNEL_HIERARCHY.STR_LONG_DESC3, 
+                              PERSONNEL_HIERARCHY.STR_LONG_DESC2, 
+                              PERSONNEL_HIERARCHY.STR_LONG_DESC1) 
+       END                                                                                                                                                                                                                                                                       AS [DEPARTMENT],
+
+       
+       CASE WHEN PERSONNEL_HIERARCHY.STR_LONG_DESC4 ='corporate' THEN COALESCE(PERSONNEL_HIERARCHY.STR_LONG_DESC7,
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC6, 
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC5, 
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC4, 
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC3, 
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC2, 
+                                                                                                                                     PERSONNEL_HIERARCHY.STR_LONG_DESC1)
+       ELSE COALESCE(PERSONNEL_HIERARCHY.STR_LONG_DESC5, 
+                              PERSONNEL_HIERARCHY.STR_LONG_DESC4, 
+                              PERSONNEL_HIERARCHY.STR_LONG_DESC3, 
+                              PERSONNEL_HIERARCHY.STR_LONG_DESC2, 
+                              PERSONNEL_HIERARCHY.STR_LONG_DESC1) 
+       END                                                                                                                                                                                                                                                                       AS [TEAM],
+	   
+	   
+	   
+	   
+	   
+	   
+	   d455m.pers_str_ref,rl_pers_hierarchy,

@@ -1,0 +1,85 @@
+
+
+--DBCC DROPCLEANBUFFERS
+
+CREATE VIEW RLCase_View
+as
+
+SELECT   
+ r.PERSON_REF [Employee ID/Person Ref],
+EMP_DISC_REF_NO Case_No,
+DATE_R Case_Start_Date,
+r.END_DATE Case_End_Date,
+r.R_TYPE Case_Type,
+
+WARNING_CATEGORY [2nd Category],
+EMP_DISC_HR_CONTACT[Hr Contact],
+EMP_DISC_INV_OFFICER [Investigation officer],
+dre.LONG_DESC[Region/department],
+de.LONG_DESC [Business Stream],
+
+l.LONG_DESC [Location]
+--,pp.D8
+--,pp.D6
+--,pp.d4
+--,r.*
+
+FROM raw_D541M r
+left JOIN raw_d550m t ON  t.PERSON_REF= r.PERSON_REF
+left JOIN raw_d500m e ON e.PERSON_REF=r.PERSON_REF
+left JOIN raw_d580m m ON m.PERSON_REF=t.PERSON_REF AND  m.END_DATE IS NULL
+
+LEFT  JOIN raw_D455M p ON p.PERSON_REF=m.PERSON_REF
+AND m.REF=p.EMP_POST_REF
+AND m.START_COMPDATE=p.EMP_POST_START_COMPDATE  AND p.EMP_POST_END_DATE IS NULL
+LEFT JOIN raw_D581M  ee ON ee.PERSON_REF=m.PERSON_REF
+AND ee.EMP_POST_REF=m.REF AND ee.EMP_POST_START_COMPDATE=m.START_COMPDATE   AND ee.END_DATE IS null
+LEFT JOIN raw_d850m l ON l.LOCATION_REF=ee.REF
+LEFT JOIN raw_d100m de ON de.REF=p.PERS_STR_REF_LEVEL3
+LEFT JOIN raw_d100m dre ON dre.REF=p.PERS_STR_REF_LEVEL6
+--LEFT  JOIN dbo.RL_PERS_HIERARCHY pp ON pp.CHILD_ID=p.PERS_STR_REF_LINK
+
+--SELECT * FROM 
+-- raw_D541M r
+
+ORDER BY Case_Start_Date desc
+
+
+
+SELECT ref,short_desc
+FROM 
+(
+
+SELECT a.ref,a.SHORT_DESC--,a.LONG_DESC 
+,COUNT( a.ref) OVER (PARTITION BY a.SHORT_DESC ORDER BY a.SHORT_DESC) rno
+
+FROM raw_d100m a
+INNER JOIN raw_d100m b ON a.SHORT_DESC=b.SHORT_DESC
+AND a.REF<>b.REF
+
+INNER JOIN raw_d126m m ON a.REF=m.STR_REF
+
+
+
+WHERE m.HIERARCHY_ID='pers'
+
+GROUP BY  a.ref,a.SHORT_DESC---,a.LONG_DESC 
+)E
+
+
+WHERE e.rno>1
+
+
+
+
+
+
+
+
+
+--SELECT * FROM RLCase_View
+
+--WHERE case_no IN (
+--SELECT case_no FROM RLCase_View
+--GROUP BY case_no 
+--HAVING COUNT(*)>1)

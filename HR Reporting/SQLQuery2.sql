@@ -1,0 +1,24 @@
+SELECT r.long_desc,Setup_Date,closed_date,post_ref  ,er.BIRTH_DATE,er.ETHNIC_ORIGIN
+FROM raw_D270M r
+INNER JOIN raw_D580m e ON r.post_ref=e.REF
+INNER JOIN raw_d500m er
+
+ON e.PERSON_REF=er.PERSON_REF
+
+
+
+
+
+SELECT * 
+ FROM raw_D270M r
+
+SELECT DATEDIFF(YEAR,BIRTH_DATE,GETDATE()) age  ----,BIRTH_DATE
+,e.ETHNIC_ORIGIN
+,e.SEX
+,e.FIRST_FORNAME
+,e.SURNAME
+
+ FROM raw_D500m e
+ INNER JOIN raw_d550m er ON e.PERSON_REF=er.PERSON_REF
+ 
+ WHERE    er.END_DATE IS null

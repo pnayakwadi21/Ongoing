@@ -1,0 +1,26 @@
+SELECT * FROM dbo.RL_PERS_HIERARCHY
+
+
+
+
+
+
+
+CREATE VIEW  Merged_Schemes_View
+as
+
+SELECT DISTINCT  SHORT_DESC,LONG_DESC FROM dbo.RAW_D100M mm
+
+INNER JOIN raw_d126m  nn ON mm.REF=nn.STR_REF
+
+
+
+WHERE SHORT_DESC IN (
+SELECT short_desc FROM dbo.RAW_D100M m
+INNER JOIN  raw_d126m  p ON m.ref=p.STR_ref
+WHERE p.HIERARCHY_ID='pers'
+GROUP BY m.SHORT_DESC 
+HAVING COUNT(DISTINCT m.long_desc)>1
+)
+
+AND  nn.HIERARCHY_ID='pers'

@@ -1,0 +1,53 @@
+SELECT   
+EMP_DISC_REF_NO Case_No,
+DATE_R Case_Start_Date,
+r.END_DATE Case_End_Date,
+r.R_TYPE Case_Type,
+
+WARNING_CATEGORY [2nd Category],
+EMP_DISC_HR_CONTACT[Hr Contact],
+EMP_DISC_INV_OFFICER [Investigation officer]
+--dre.LONG_DESC[Region/department],
+--de.LONG_DESC [Business Stream],
+--l.LONG_DESC [Location]
+--,pp.D8
+--,pp.D6
+--,pp.d4
+--,r.*
+,pp.D4   [Business Stream]
+,pp.D6   [Region/department]
+,pp.D8    [Location]
+FROM raw_D541M r
+LEFT  JOIN raw_D455M p ON p.PERSON_REF=r.PERSON_REF  AND p.EMP_POST_END_DATE IS NULL
+
+LEFT JOIN 
+(
+
+SELECT m.REF ,p.*  FROM dbo.RL_PERS_HIERARCHY p
+INNER JOIN dbo.RAW_D100M m
+on p.SHORT_DESC=m.SHORT_DESC
+
+)pp
+ON pp.ref=p.PERS_STR_REF_LINK
+
+
+
+
+
+
+--left JOIN raw_d550m t ON  t.PERSON_REF= r.PERSON_REF
+--left JOIN raw_d500m e ON e.PERSON_REF=r.PERSON_REF
+--left JOIN raw_d580m m ON m.PERSON_REF=t.PERSON_REF AND  m.END_DATE IS NULL
+
+--LEFT  JOIN raw_D455M p ON p.PERSON_REF=m.PERSON_REF
+--AND m.REF=p.EMP_POST_REF
+--AND m.START_COMPDATE=p.EMP_POST_START_COMPDATE  AND p.EMP_POST_END_DATE IS NULL
+--LEFT JOIN raw_D581M  ee ON ee.PERSON_REF=m.PERSON_REF
+--AND ee.EMP_POST_REF=m.REF AND ee.EMP_POST_START_COMPDATE=m.START_COMPDATE   AND ee.END_DATE IS null
+--LEFT JOIN raw_d850m l ON l.LOCATION_REF=ee.REF
+--LEFT JOIN raw_d100m de ON de.REF=p.PERS_STR_REF_LEVEL3
+--LEFT JOIN raw_d100m dre ON dre.REF=p.PERS_STR_REF_LEVEL6
+--LEFT  JOIN dbo.RL_PERS_HIERARCHY pp ON pp.CHILD_ID=p.PERS_STR_REF_LINK
+
+
+
