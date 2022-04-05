@@ -1,0 +1,3 @@
+select *  from d805m   tables 
+
+select *  from d806m  columns 
