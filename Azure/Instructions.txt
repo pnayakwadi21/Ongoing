@@ -1,0 +1,1 @@
+Use this file to troubleshoot Azure Intigration setup for crdentials
