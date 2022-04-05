@@ -1,0 +1,657 @@
+<?xml version="1.0"?>
+<model xmlns="http://schemas.serviceml.org/smlif/2007/02">
+  <identity>
+    <name>urn:uuid:96fe1236-abf6-4a57-b54d-e9baab394fd1</name>
+    <baseURI>http://documentcollection/</baseURI>
+  </identity>
+  <xs:bufferSchema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <definitions xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08">
+      <document>
+        <docinfo>
+          <aliases>
+            <alias>/system/schema/RegisteredServers</alias>
+          </aliases>
+          <sfc:version DomainVersion="1" />
+        </docinfo>
+        <data>
+          <xs:schema targetNamespace="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+            <xs:element name="ServerGroup">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:any namespace="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" processContents="skip" minOccurs="0" maxOccurs="unbounded" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="RegisteredServer">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:any namespace="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" processContents="skip" minOccurs="0" maxOccurs="unbounded" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <RegisteredServers:bufferData xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08">
+              <instances xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08">
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:ServerGroup xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:ServerGroups>
+                        <sfc:Collection>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA</sml:Uri>
+                          </sfc:Reference>
+                        </sfc:Collection>
+                      </RegisteredServers:ServerGroups>
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">DatabaseEngineServerGroup</RegisteredServers:Name>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                    </RegisteredServers:ServerGroup>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:ServerGroup xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:RegisteredServers>
+                        <sfc:Collection>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev/RegisteredServer/1stTouchDev</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev/RegisteredServer/DWDEV</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev/RegisteredServer/HierarchyDbDev</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev/RegisteredServer/QLDEV</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev/RegisteredServer/SSRSDEV</sml:Uri>
+                          </sfc:Reference>
+                        </sfc:Collection>
+                      </RegisteredServers:RegisteredServers>
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">Dev</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                    </RegisteredServers:ServerGroup>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev/RegisteredServer/1stTouchDev</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">1stTouchDev</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">1stTouchDevDB,53524</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-16711936</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=1stTouchDevDB,53524;integrated security=True;pooling=False;multipleactiveresultsets=False;connect timeout=30;encrypt=False;trustservercertificate=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                      <RegisteredServers:OtherParams type="string" />
+                      <RegisteredServers:AuthenticationType type="int">0</RegisteredServers:AuthenticationType>
+                      <RegisteredServers:ActiveDirectoryUserId type="string" />
+                      <RegisteredServers:ActiveDirectoryTenant type="string" />
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev/RegisteredServer/DWDEV</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">DWDEV</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">DWDEVDB,55219</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-16711936</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=DWDEVDB,55219;integrated security=True;pooling=False;multipleactiveresultsets=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev/RegisteredServer/HierarchyDbDev</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">HierarchyDbDev</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">S1VTSQLDEVDB05,53524</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-8323328</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=S1VTSQLDEVDB05,53524;integrated security=True;pooling=False;multipleactiveresultsets=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev/RegisteredServer/QLDEV</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">QLDEV</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">QLDevDB,56892</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-16711936</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=QLDevDB,56892;integrated security=True;pooling=False;multipleactiveresultsets=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev/RegisteredServer/SSRSDEV</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Dev</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">SSRSDEV</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">S1VTSQLDEVRS03,57628</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-16711936</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=S1VTSQLDEVRS03,57628;integrated security=True;pooling=False;multipleactiveresultsets=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:ServerGroup xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:RegisteredServers>
+                        <sfc:Collection>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/Datix_/1stTouch__Prod</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/DWPROD</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/HierarchyDbProd</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/ProphixForecasting</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/QLProdDB</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/SSRSProdCatalogDB</sml:Uri>
+                          </sfc:Reference>
+                        </sfc:Collection>
+                      </RegisteredServers:RegisteredServers>
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">Prod</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                    </RegisteredServers:ServerGroup>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/Datix_/1stTouch__Prod</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">Datix/1stTouch_Prod</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">DatixProdDB,50680</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-65536</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=DatixProdDB,50680;integrated security=True;pooling=False;multipleactiveresultsets=False;connect timeout=30;encrypt=False;trustservercertificate=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                      <RegisteredServers:OtherParams type="string" />
+                      <RegisteredServers:AuthenticationType type="int">0</RegisteredServers:AuthenticationType>
+                      <RegisteredServers:ActiveDirectoryUserId type="string" />
+                      <RegisteredServers:ActiveDirectoryTenant type="string" />
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/DWPROD</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">DWPROD</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">DWPRODDB,57169</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-65536</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=DWPRODDB,57169;initial catalog=H21_STAGING;integrated security=True;pooling=False;multipleactiveresultsets=False;connect timeout=30;encrypt=False;trustservercertificate=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                      <RegisteredServers:OtherParams type="string" />
+                      <RegisteredServers:AuthenticationType type="int">0</RegisteredServers:AuthenticationType>
+                      <RegisteredServers:ActiveDirectoryUserId type="string" />
+                      <RegisteredServers:ActiveDirectoryTenant type="string" />
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/HierarchyDbProd</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">HierarchyDbProd</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">S1VLSQLDB05</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">false</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-986896</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=S1VLSQLDB05;integrated security=True;pooling=False;multipleactiveresultsets=False;connect timeout=30;encrypt=False;trustservercertificate=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                      <RegisteredServers:OtherParams type="string" />
+                      <RegisteredServers:AuthenticationType type="int">0</RegisteredServers:AuthenticationType>
+                      <RegisteredServers:ActiveDirectoryUserId type="string" />
+                      <RegisteredServers:ActiveDirectoryTenant type="string" />
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/ProphixForecasting</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">ProphixForecasting</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">S1VLAPPCPM01</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-65536</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=S1VLAPPCPM01;integrated security=True;pooling=False;multipleactiveresultsets=False;connect timeout=30;encrypt=False;trustservercertificate=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                      <RegisteredServers:OtherParams type="string" />
+                      <RegisteredServers:AuthenticationType type="int">0</RegisteredServers:AuthenticationType>
+                      <RegisteredServers:ActiveDirectoryUserId type="string" />
+                      <RegisteredServers:ActiveDirectoryTenant type="string" />
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/QLProdDB</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">QLProdDB</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">QLProdDB,52028</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-65536</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=QLProdDB,52028;integrated security=True;pooling=False;multipleactiveresultsets=False;connect timeout=30;encrypt=False;trustservercertificate=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                      <RegisteredServers:OtherParams type="string" />
+                      <RegisteredServers:AuthenticationType type="int">0</RegisteredServers:AuthenticationType>
+                      <RegisteredServers:ActiveDirectoryUserId type="string" />
+                      <RegisteredServers:ActiveDirectoryTenant type="string" />
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod/RegisteredServer/SSRSProdCatalogDB</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/Prod</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">SSRSProdCatalogDB</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">SSRSProdDB.universe.local,50478</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-65536</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=SSRSProdDB.universe.local,50478;integrated security=True;pooling=False;multipleactiveresultsets=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:ServerGroup xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:RegisteredServers>
+                        <sfc:Collection>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/1stTouchTrain</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/Datix_/1stTouch__QA</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/DWQA</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/HierarchyDbQa</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/QLQA</sml:Uri>
+                          </sfc:Reference>
+                          <sfc:Reference sml:ref="true">
+                            <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/SSRSQA</sml:Uri>
+                          </sfc:Reference>
+                        </sfc:Collection>
+                      </RegisteredServers:RegisteredServers>
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">QA</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                    </RegisteredServers:ServerGroup>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/1stTouchTrain</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">1stTouchTrain</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">1stTouchTrnDB.universe.local,50680</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">false</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-986896</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=1stTouchTrnDB.universe.local,50680;integrated security=True;pooling=False;multipleactiveresultsets=False;connect timeout=30;encrypt=False;trustservercertificate=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                      <RegisteredServers:OtherParams type="string" />
+                      <RegisteredServers:AuthenticationType type="int">0</RegisteredServers:AuthenticationType>
+                      <RegisteredServers:ActiveDirectoryUserId type="string" />
+                      <RegisteredServers:ActiveDirectoryTenant type="string" />
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/Datix_/1stTouch__QA</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">Datix/1stTouch_QA</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">DatixQADB,58011</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-16744193</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=DatixQADB,58011;integrated security=True;pooling=False;multipleactiveresultsets=False;connect timeout=30;encrypt=False;trustservercertificate=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                      <RegisteredServers:OtherParams type="string" />
+                      <RegisteredServers:AuthenticationType type="int">0</RegisteredServers:AuthenticationType>
+                      <RegisteredServers:ActiveDirectoryUserId type="string" />
+                      <RegisteredServers:ActiveDirectoryTenant type="string" />
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/DWQA</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">DWQA</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">DWQADB,54198</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-16744193</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=DWQADB,54198;integrated security=True;pooling=False;multipleactiveresultsets=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/HierarchyDbQa</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">HierarchyDbQa</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">S1VTSQLQADB05,58011</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">false</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-986896</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=S1VTSQLQADB05,58011;integrated security=True;pooling=False;multipleactiveresultsets=False;connect timeout=30;encrypt=False;trustservercertificate=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                      <RegisteredServers:OtherParams type="string" />
+                      <RegisteredServers:AuthenticationType type="int">0</RegisteredServers:AuthenticationType>
+                      <RegisteredServers:ActiveDirectoryUserId type="string" />
+                      <RegisteredServers:ActiveDirectoryTenant type="string" />
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/QLQA</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">QLQA</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">QLQADB,59418</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-16776961</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=QLQADB,59418;integrated security=True;pooling=False;multipleactiveresultsets=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+                <document>
+                  <docinfo>
+                    <aliases>
+                      <alias>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA/RegisteredServer/SSRSQA</alias>
+                    </aliases>
+                    <sfc:version DomainVersion="1" />
+                  </docinfo>
+                  <data>
+                    <RegisteredServers:RegisteredServer xmlns:RegisteredServers="http://schemas.microsoft.com/sqlserver/RegisteredServers/2007/08" xmlns:sfc="http://schemas.microsoft.com/sqlserver/sfc/serialization/2007/08" xmlns:sml="http://schemas.serviceml.org/sml/2007/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                      <RegisteredServers:Parent>
+                        <sfc:Reference sml:ref="true">
+                          <sml:Uri>/RegisteredServersStore/ServerGroup/DatabaseEngineServerGroup/ServerGroup/QA</sml:Uri>
+                        </sfc:Reference>
+                      </RegisteredServers:Parent>
+                      <RegisteredServers:Name type="string">SSRSQA</RegisteredServers:Name>
+                      <RegisteredServers:Description type="string" />
+                      <RegisteredServers:ServerName type="string">SSRSQADB,51705</RegisteredServers:ServerName>
+                      <RegisteredServers:UseCustomConnectionColor type="boolean">true</RegisteredServers:UseCustomConnectionColor>
+                      <RegisteredServers:CustomConnectionColorArgb type="int">-16776961</RegisteredServers:CustomConnectionColorArgb>
+                      <RegisteredServers:ServerType type="ServerType">DatabaseEngine</RegisteredServers:ServerType>
+                      <RegisteredServers:ConnectionStringWithEncryptedPassword type="string">data source=SSRSQADB,51705;integrated security=True;pooling=False;multipleactiveresultsets=False;packet size=4096</RegisteredServers:ConnectionStringWithEncryptedPassword>
+                      <RegisteredServers:CredentialPersistenceType type="CredentialPersistenceType">None</RegisteredServers:CredentialPersistenceType>
+                    </RegisteredServers:RegisteredServer>
+                  </data>
+                </document>
+              </instances>
+            </RegisteredServers:bufferData>
+          </xs:schema>
+        </data>
+      </document>
+    </definitions>
+  </xs:bufferSchema>
+</model>
