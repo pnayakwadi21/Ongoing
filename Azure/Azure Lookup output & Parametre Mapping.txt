@@ -1,0 +1,10 @@
+Azure Lookup array list:@activity('LookupTableList').output.value
+AzureForEachLoop:@pipeline().parameters.tableList
+CopyDataSource:SELECT * FROM [@{item().TABLE_SCHEMA}].[@{item().TABLE_NAME}]
+
+
+
+
+
+
+IF EXISTS (SELECT * FROM [@{item().TABLE_SCHEMA}].[@{item().TABLE_NAME}])TRUNCATE TABLE [@{item().TABLE_SCHEMA}].[@{item().TABLE_NAME}]
