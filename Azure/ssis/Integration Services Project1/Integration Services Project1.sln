@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "AzureIRSSIsTestPkg", "AzureIRSSIsTestPkg.dtproj", "{217AB033-0023-4F68-B5FB-2B5CA09C78EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{217AB033-0023-4F68-B5FB-2B5CA09C78EB}.Development|Default.ActiveCfg = Development
+		{217AB033-0023-4F68-B5FB-2B5CA09C78EB}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A22F1A9B-2F29-454D-B342-1B327FE692FE}
+	EndGlobalSection
+EndGlobal
