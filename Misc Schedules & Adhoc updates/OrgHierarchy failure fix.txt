@@ -1,3 +1,6 @@
+TRUNCATE TABLE dbo.RAW_D126M
+TRUNCATE TABLE dbo.RAW_D100M
+
 
 job:Org_Data_Management Hierarchy
 Environment:DW
