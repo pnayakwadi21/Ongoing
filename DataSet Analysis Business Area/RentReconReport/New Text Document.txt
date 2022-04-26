@@ -1,0 +1,1 @@
+Genpost ,Filtering done by hrahgscp Jpurnal types in new amended report instead of journal type prefiltering from hratrans in original report

@@ -1,0 +1,27 @@
+	
+							
+							Linked SITE:Operational staff  level8(operational staff)
+						         All staff Not operational =Level7
+						   
+						        HUB:Operational staff  level5(operational staff)
+						        All staff Not operational =Level6
+						   
+						        Library:applies to corporate =level8
+						        UserType:M Operational above court level
+						                 C:CourtLevel
+							         D:Departmental
+									 
+						   
+
+
+
+
+
+
+
+
+
+
+
+
+
