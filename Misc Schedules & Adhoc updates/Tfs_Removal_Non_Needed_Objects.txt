@@ -1,0 +1,295 @@
+cc
+d455vtest
+raw_d100m_bkp
+raw_d126_copy_bkp
+d455vhelper
+ [dbo].[REC_RESOURCELINK_ACTIVE_DIRECTORY_ALL_POSTStest]
+
+
+CREATE TABLE [dbo].[CubeRole] (
+    [Id]            INT           IDENTITY (1, 1) NOT NULL,
+    [CubeRole]      VARCHAR (500) NULL,
+    [CubeRoleSid]   VARCHAR (500) NULL,
+    [RoleStartDate] DATETIME      NOT NULL,
+    [RoleEndDate]   DATETIME      NULL
+);
+GO
+
+
+
+[dbo].[DIM_FINANCIAL_PERIODS]
+[dbo].[DIM_GENERAL_LEDGER_STRINGS]
+[dbo].[DIM_TRANSACTION_VALUE]
+[dbo].[FACT_GENERAL_LEDGER_TRANSACTIONS_AUDIT]
+
+
+
+CREATE TABLE [dbo].[GENTRAN_QL4_TO_QL3_CORRECTIONS] (
+    [Ql4 gen_code] VARCHAR (80) NULL,
+    [QL3 gen code] VARCHAR (80) NULL,
+    [ fival]       FLOAT (53)   NULL,
+    [batch_id]     VARCHAR (14) NULL,
+    [seq_id]       VARCHAR (14) NULL
+);
+GO
+
+
+CREATE VIEW  [dbo].[Device_Application_type_view_test] 
+ AS
+ SELECT DISTINCT
+	                   [EP].[EMPLOYEE_EMPLOYEE_NUMBER]
+	                  , [T].[DATA_VALUE]   -----
+	            FROM [dbo].[RAW_D970M] [T]
+	                INNER JOIN
+	                (
+	                    SELECT  [POST_REF] [EMPLOYEE_POST_REFERENCE]
+      
+      ,[EMPLOYEE_NUMBER] [EMPLOYEE_EMPLOYEE_NUMBER]
+     
+  FROM [H21_STAGING].[dbo].[Employee_Active_Posts_View]
+	                ) [EP]
+	                    ON [EP].[EMPLOYEE_POST_REFERENCE] = [T].[DATA_KEY_ID]
+	            WHERE [T].[SCREEN_REF] LIKE 'US_PFIN'
+	                  AND [T].[FIELD_REF] LIKE '01000148'
+GO
+
+
+      ,e.[STR_ID]
+
+      ,e.[STR_REF]
+
+
+CREATE FUNCTION [dbo].[Rechierarchyflatening]
+(	
+@Child  Varchar(100),
+@HierarchyName Varchar(100)
+--@Child  Varchar(100)='01003244',
+--@HierarchyName Varchar(100)='PERS'
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+
+
+with ctee
+as(
+SELECT 
+      [FATHER_STR_ID]
+      ,[FATHER_STR_REF]
+      ,[STR_ID]
+      ,[STR_REF]
+	  ,1  Hid
+  FROM [H21_STAGING].[dbo].[RAW_D126M]
+  WHERE [HIERARCHY_ID] like @HierarchyName
+  and STR_REF=@Child
+ 
+ union all
+
+SELECT 
+      e.[FATHER_STR_ID]
+      ,e.[FATHER_STR_REF]
+  
+      ,e.[STR_ID]
+      ,e.[STR_REF]
+	  ,c.Hid+1 Hid --- here is the cal
+  FROM [H21_STAGING].[dbo].[RAW_D126M] e
+  JOIN   ctee c   on c.FATHER_STR_REF=e.STR_REF
+    WHERE [HIERARCHY_ID] like @HierarchyName
+	  ---and e.STR_REF='01003244'
+)
+
+select * from ctee
+
+
+
+
+
+)
+GO
+
+
+ CREATE PROCEDURE Sharepoint_UserGroups_Master 
+AS
+
+
+EXEC [dbo].[Sp_Portal_User_Groups]
+EXEC [dbo].[SP_Library_Users]
+GO
+
+CREATE PROCEDURE [dbo].[InsertDWstaging_RLHierarchy]
+@MaxLevel Varchar(10),
+@HierarchyTable NVARCHAR(100),
+@HierarchyName NVARCHAR(100),
+@HierarchyType NVARCHAR(100)
+AS
+---Exec InsertDWstaging_RLHierarchy 7,'RLorgHierarchy_LongNames','Pers','RecursiveFlatening_LongNames'
+-- =============================================
+-- Author:		<Praveen Nayakwadi>
+-- Create date: <14/09/2017>
+-- Description:	<Organisation hierachy flatenning>
+---Note: in test
+-- =============================================
+DECLARE  @Query          NVARCHAR(Max)=''
+SET @MaxLevel=@MaxLevel+1
+SET @Query= '
+Truncate Table '+@HierarchyTable+'
+DECLARE  @StrId VARCHAR(100)
+DECLARE RecurFlatenning CURSOR FOR SELECT STR_REF FROM [H21_STAGING].[dbo].[RAW_D126M] r
+INNER JOIN [H21_STAGING].[dbo].[RL_HIERACHY_NAME_LEVELS] h ON   r.[HIERARCHY_ID]=h.[HIERARCHY_ID]
+                                                           AND  r.HIERARCHY_LEVEL_NO=h.HIERARCHY_LEVEL_NO
+
+
+
+ WHERE r.[HIERARCHY_ID] like '''+@HierarchyName+''' 
+---AND r.HIERARCHY_LEVEL_NO = h.Lastlevel
+
+OPEN RecurFlatenning
+FETCH  NEXT FROM RecurFlatenning  INTO @StrId
+WHILE @@FETCH_STATUS=0
+BEGIN
+INSERT INTO  '+@HierarchyTable+'
+
+EXEC   '+@HierarchyType+'  @StrId ,'''+@MaxLevel+''','''+@HierarchyName+'''
+FETCH  NEXT FROM RecurFlatenning  INTO  @StrId
+END
+
+CLOSE  RecurFlatenning
+DEALLOCATE    RecurFlatenning'
+
+EXEC(@Query)
+GO
+
+
+CREATE TABLE [dbo].[adcopy] (
+    [EMPLOYEE_NUMBER]              VARCHAR (10)    NULL,
+    [USER_NAME]                    NVARCHAR (4000) NULL,
+    [USER_TELEPHONE_NUMBER]        NVARCHAR (4000) NULL,
+    [USER_MOBILE_TELEPHONE_NUMBER] NVARCHAR (4000) NULL,
+    [USER_EMAIL_ADDRESS]           NVARCHAR (4000) NULL,
+    [ACCOUNT_DISABLED]             VARCHAR (1)     NOT NULL
+);
+GO
+CREATE TABLE [dbo].[CurrentEmployee_Postold](
+	[PERSON_REF] [VARCHAR](80) NULL,
+	[EMP_POST_REF] [VARCHAR](80) NULL,
+	[PERS_STR_REF_LINK] [VARCHAR](8) NULL,
+	[EmpstartOrder] [BIGINT] NULL,
+	[Ad_UserName] [NVARCHAR](4000) NULL,
+	[HIERARCHY_ID] [VARCHAR](10) NOT NULL,
+	[HIERARCHY_LEVEL_NO] [VARCHAR](2) NOT NULL
+) ON [PRIMARY]
+
+
+
+
+
+
+CREATE TABLE [dbo].[DIM_DATE_TEST](
+	[DateSK] [INT] NOT NULL,
+	[Date] [DATE] NULL,
+	[DateChar] [VARCHAR](10) NULL,
+	[Year] [INT] NULL,
+	[Quarter] [VARCHAR](20) NULL,
+	[FinancialYear] [VARCHAR](20) NULL,
+	[FinancialQuarter] [VARCHAR](20) NULL,
+	[MonthNumber] [INT] NULL,
+	[MonthName] [VARCHAR](20) NULL,
+	[MonthNameOrder] [VARCHAR](20) NULL,
+	[Week] [INT] NULL,
+	[DayOfYear] [INT] NULL,
+	[DayOfMonth] [INT] NULL,
+	[DayOfWeek] [INT] NULL,
+	[DayOfWeekName] [VARCHAR](20) NULL,
+	[DayOfWeekNameOrder] [VARCHAR](20) NULL
+) ON [PRIMARY]
+GO
+
+
+USE [H21_STAGING]
+GO
+
+/****** Object:  StoredProcedure [dbo].[RecursiveFlatening]    Script Date: 11/05/2022 15:30:11 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+-- =============================================
+-- Author:		<Praveen Nayakwadi>
+-- Create date: <13/09/2017>
+-- Description:	<Recusursive hierachy flatenning>
+
+-- =============================================
+CREATE  PROCEDURE [dbo].[RecursiveFlatening]
+
+@Child VARCHAR(100),
+@MaxLevel INT,
+@HierarchyName VARCHAR(100)
+AS
+IF OBJECT_ID(N'tempdb..#Parent')   IS NOT NULL  DROP TABLE #Parent
+IF OBJECT_ID(N'tempdb..#Heirarchy') IS NOT NULL DROP TABLE #Heirarchy
+
+
+SET @MaxLevel=@MaxLevel+1
+SELECT [STR_REF] STR_Id,SHORT_DESC,ROW_NUMBER() OVER (ORDER  BY Hid DESC)  [STR_REF]
+INTO #parent
+FROM(
+SELECT  STR_ID , r.LONG_DESC,[STR_REF],Hid,r.SHORT_DESC
+---,r.ID   SHORT_DESC 
+ FROM [dbo].[Rechierarchyflatening](@Child,@HierarchyName) rw
+LEFT JOIN   Raw_D100M r ON r.REF=rw.STR_REF
+) e
+
+DECLARE @level INT
+SELECT @level=MAX([STR_REF])+1   FROM  #parent
+DECLARE @ilevel INT
+SET @ilevel=@MaxLevel-@level
+
+
+CREATE  TABLE #Heirarchy (str_id VARCHAR(100),str_ref INT)
+DECLARE @CurrentLevelStr_id  VARCHAR(100),
+        @Short_Desc          NVARCHAR(100)
+
+SELECT 
+
+@CurrentLevelStr_id= str_id ,
+@Short_Desc=SHORT_DESC
+
+FROM #parent
+
+INSERT INTO #Heirarchy
+SELECT str_id,str_ref FROM #parent
+
+DECLARE @i INT=0
+WHILE  @i<=@ilevel
+BEGIN
+INSERT INTO #Heirarchy VALUES (@CurrentLevelStr_id,@level)
+SET @level=@level+1
+SET @i=@i+1
+END 
+
+DECLARE @PivotList NVARCHAR(MAX)='',
+        @PHierLevelsQuery NVARCHAR(MAX)
+--Declare @MaxLevel Int=8,
+DECLARE @Ml INT=1
+
+WHILE @Ml<@MaxLevel
+BEGIN
+SELECT @PivotList=@PivotList+'['+CONVERT(VARCHAR(100),@Ml)+'],'
+SET @Ml=@Ml+1
+END
+SET @PivotList=SUBSTRING(@PivotList,1,LEN(@PivotList)-1)
+
+--Select * From #ptest
+
+SET @PHierLevelsQuery=' Select'+@PivotList+', '''+@Short_Desc+''' Short_Desc  From #Heirarchy p
+PIVOT (Max(STR_ID) For [STR_REF]in('+@PivotList+' ))e'
+
+EXEC(@PHierLevelsQuery)
+GO
+
+
