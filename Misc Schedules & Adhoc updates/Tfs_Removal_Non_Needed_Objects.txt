@@ -293,3 +293,132 @@ EXEC(@PHierLevelsQuery)
 GO
 
 
+CREATE PROCEDURE [dbo].[INSERT_POST_HIERARCHY_SCHEMES]
+AS
+--IF OBJECT_ID(N'tempdb..#HierarchyPostSchemes ')      IS NOT NULL DROP TABLE #HierarchyPostSchemes 
+IF OBJECT_ID(N'tempdb..#HierarchyMeta')              IS NOT NULL DROP TABLE #HierarchyMeta
+
+TRUNCATE TABLE PostOrgSchemes
+
+
+
+
+SELECT  [HIERARCHY_ID]
+      ,MAX([HIERARCHY_LEVEL_NO]) [HIERARCHY_LEVEL_NO]
+      ,[MaxLevel] AS [MaxLevelS]
+	  ,ht.TABLE_NAME [HierarchyTableName]
+
+	  INTO #HierarchyMeta
+
+FROM [dbo].[RL_HIERACHY_NAME_LEVELS] hl
+INNER JOIN [dbo].[RL_HIERACHY_MAP_TABLES] ht ON hl.Hierarchy_Id=ht.HIERACHY_ID
+GROUP BY [HIERARCHY_ID]
+  ,[MaxLevel]
+  ,ht.TABLE_NAME
+
+
+
+
+
+DECLARE @Hierarchy_Id Varchar(100),
+        @HIERARCHY_LEVEL_NO VARCHAR(100),
+		@MaxLevels   VARCHAR(100),
+		@HierarchyTableName  VARCHAR(100)
+
+DECLARE @QUERY NVARCHAR(MAX)
+
+
+DECLARE  HierarCurMeta CURSOR FOR SELECT   HIERARCHY_ID,HIERARCHY_LEVEL_NO,MaxLevels,HierarchyTableName FROM   #HierarchyMeta
+OPEN HierarCurMeta
+FETCH NEXT FROM    HierarCurMeta    INTO   @Hierarchy_Id,@HIERARCHY_LEVEL_NO,@MaxLevels ,@HierarchyTableName
+WHILE @@FETCH_STATUS=0
+BEGIN
+DECLARE @Level  VARCHAR(200)=''
+SELECT @Level=@Level+Levels FROM fnHierarchyLevel(@MaxLevels )
+SET @Level =SUBSTRING(@Level,1,LEN(@Level)-1) 
+
+SET @QUERY='SELECT 
+HierarchyLevel PostOrgLevel
+--,LValues
+,
+up.Short_Desc   Scheme
+,r.SHORT_DESC  
+,Hierarchy_Id
+FROM(
+SELECT '+@Level+',
+	   l.Short_Desc,c.Hierarchy_Id
+FROM '+@HierarchyTableName+' l
+INNER JOIN  RAW_D100M e ON e.Short_Desc=l.Short_desc
+INNER JOIN RAW_D126M c ON c.STR_REF=e.REF
+WHERE 
+----c.HIERARCHY_LEVEL_NO='+@HIERARCHY_LEVEL_NO+'
+----AND  
+ c.Hierarchy_Id='''+@Hierarchy_Id+'''
+) p
+UNPIVOT
+(
+HierarchyLevel FOR LVALUES IN('+@Level+')
+) up
+
+LEFT JOIN 
+(
+SELECT  LONG_DESC,SHORT_DESC,REF FROM RAW_D100M
+GROUP BY LONG_DESC,SHORT_DESC,REF
+) r    ON r.REF=up.HierarchyLevel
+
+'
+INSERT INTO PostOrgSchemes
+EXEC (@QUERY)
+
+
+FETCH NEXT FROM    HierarCurMeta    INTO   @Hierarchy_Id,@HIERARCHY_LEVEL_NO,@MaxLevels ,@HierarchyTableName
+END
+CLOSE  HierarCurMeta 
+DEALLOCATE    HierarCurMeta 
+
+---DROP TABLE   #HierarchyMeta
+---DROP TABLE #HierarchyPostSchemes
+GO
+
+CREATE TABLE [dbo].[PostOrgSchemes] (
+    [PostOrgLevel] VARCHAR (100) NULL,
+    [Scheme]       VARCHAR (100) NULL,
+    [Short_desc]   VARCHAR (100) NULL,
+    [HierarchyId]  VARCHAR (10)  NULL
+);
+GO
+CREATE VIEW [dbo].[SURVEYOR_HIERARCHY_VIEW]
+AS
+SELECT [D1] [10 - Board Desc]
+      ,[D2] [20 - Executive Desc]
+      ,[D3] [30 - Directorate Desc]
+      ,[D4] [40 - Business Stream Desc]
+      ,[D5] [50 - Sub-Business Stream Desc]
+      ,[D6] [60 - Region / Service Desc]
+      ,[D7] [70 - Patch Desc]
+      ---,[D8] [80 - Scheme / Dept. / Unit Desc]
+	  ,convert(varchar(100),long_desc)  [80 - Scheme / Dept. / Unit Desc]
+      ,[L1][10 - Board Code]
+      ,[L2] [20 - Executive Code]
+      ,[L3] [30 - Directorate Code]
+      ,[L4] [40 - Business Stream Code]
+      ,[L5] [50 - Sub-Business Stream Code]
+      ,[L6] [60 - Region / Service Code]
+      ,[L7] [70 - Patch Code]
+      ,[L8][80 - Scheme / Dept. / Unit Code]
+      ,r.[SHORT_DESC]
+
+  FROM RL_SURVE_HIERARCHY r
+INNER JOIN 
+(
+SELECT 
+SHORT_DESC 
+
+FROM  RAW_D126M h  
+INNER JOIN RAW_D100M d ON h.STR_REF=d.REF
+WHERE HIERARCHY_ID='Surve' 
+----and HIERARCHY_LEVEL_NO=80
+GROUP BY SHORT_DESC,d.OBS_DATE
+) s ON r.L8=s.SHORT_DESC
+GO
+
