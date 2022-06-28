@@ -1,0 +1,7 @@
+
+SELECT LONG_DESC Description ,ad.LINE_ONE Address1,ad.LINE_TWO Address2,ad.LINE_THREE Address3,  ad.LINE_FOUR ,ad.POSTCODE  
+ FROM DBO.RAW_D850M	ld
+INNER JOIN raw_d910m ad ON ld.ADDRESS_REF=ad.REF
+ORDER BY ld.LONG_DESC
+
+

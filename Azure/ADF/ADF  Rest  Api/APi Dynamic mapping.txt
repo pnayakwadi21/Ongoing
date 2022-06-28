@@ -1,0 +1,20 @@
+cref
+{"type": "TabularTranslator",                                      
+"mappings": [                
+{                                             
+ "source": {   "path": "$['alerts'][0].['description']"   }, 
+ 
+ "sink": {  "name": "description",  "type": "String"  } },
+ 
+ 
+ {"source": {"path": "$['alerts'][0].['title']" },
+ "sink": {  "name": "title",    "type": "String" },                                          
+ 
+ {"source": {"path": "$['city_name']" },
+ 
+ "sink": { "name": "city_name",                                                  
+ "type": "String"      }                                          
+ }                                      
+ ],  
+ 
+ }

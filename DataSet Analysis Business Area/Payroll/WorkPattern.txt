@@ -1,0 +1,11 @@
+
+D590M - Working patters attributed to Employee in post
+
+D187M - Variations to working patterns for Employee in post
+
+D780M - Working pattern reference
+
+D781M - Working pattern days reference
+
+D782M - Working pattern session reference
+
