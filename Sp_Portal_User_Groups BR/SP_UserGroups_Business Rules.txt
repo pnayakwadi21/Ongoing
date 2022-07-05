@@ -1,0 +1,45 @@
+	
+							
+							Linked SITE:Operational staff  level8(operational staff)
+						         All staff Not operational =Level7
+						   
+						        HUB:Operational staff  level5(operational staff)
+						        All staff Not operational =Level6
+						   
+						        Library:applies to corporate =level8
+						        UserType:M Operational above court level
+						                 C:CourtLevel
+							         D:Departmental
+									 
+						   
+
+
+
+
+
+            D1 H7,
+           D2 H6,
+           D3 H5,
+           D4 H4,
+           D5 H3,
+           D6 H2,
+           D7 H1,
+           D8 H8,
+
+
+----Oldham has a separate org structure where h5/region doesnt fall into extra care /retriremet house
+
+
+Schems allocation based on role ( 'CM', 'ACM', 'PATCH', 'HEAD', 'QAC' ):(0365 groups)
+
+PriorLevel to forward but restricted to same business stream
+
+Schems allocation based on non role :
+Current level to forward
+
+
+
+
+
+
+
