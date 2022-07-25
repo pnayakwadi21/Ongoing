@@ -1,5 +1,5 @@
 
-
+--DBCC DROPCLEANBUFFERS
 IF OBJECT_ID('tempdb..#date') IS NOT NULL DROP  TABLE #date
 IF OBJECT_ID('tempdb..#bankholidays') IS NOT NULL DROP  TABLE #bankholidays
 IF OBJECT_ID('tempdb..#ctypes_desc') IS NOT NULL DROP  TABLE #ctypes_desc
@@ -12,89 +12,6 @@ DECLARE @START_DATE  DATE ='1900/01/01' ,
 		@CalenderYear Int,
 		@CalenderMonth INT
 
-
-CREATE TABLE #DATE (Calender_Date DATE,Caleder_Week INT,Fiscal_Date DATE,Fiscal_Week INT ,
-DayOfMonth INT,Weekday INT,Month INT,Year int,
-WeekDayName VARCHAR(50),MonthName VARCHAR(20))
-WHILE @START_DATE<@END_DATE
-BEGIN
-INSERT INTO #DATE (Calender_Date,Caleder_Week,Fiscal_Date,Fiscal_Week, DayOfMonth,WeekDay,Month,year,WeekDayName,MonthName)
-SELECT @START_DATE Calendar_Date,DatePart(wk,@START_DATE) CalenderWeek
----,DATEADD(Month,3,@START_DATE)
-, DATEADD(Month,-3,@START_DATE) Fiscal_Date,
-  DATEPART(WEEK,DATEADD(Month,-3,@START_DATE))  FiscalWeek
- 
- ,DATEPART(DAY,@START_DATE) [DayOfFMonth]
-  ,DATEPART(WEEKDAY,@START_DATE) [DayOfFMonth]
- ,DATEPART(Month,@START_DATE) [Month]
-  ,DATEPART(Year,@START_DATE) [Month]
-  ,DATENAME(WEEKDAY,@START_DATE)
-  , DATENAME(MONTH,@START_DATE)
-  
-SET @START_DATE=DATEADD(DD,1,@START_DATE)
-END 
-
-
-
---SELECT * FROM #DATE
---ORDER BY Calender_Date DESC
-
-
-
-
-
---IF OBJECT_ID(N'dbo.PBI_DATE',N'U') IS NOT NULL
---DROP TABLE dbo.PBI_DATE
-
--- bank holidays till 2023
-
--------'29-08-2022','26-12-2022','02-01-2023','07-04-2023','10-04-2023','01-05-2023','29-05-2023','28-08-2023','25-12-2023','26-12-2023'
-
-
-
-CREATE TABLE #bankholidays
-(HolidayDt Date)
-
-INSERT INTO #bankholidays
-(
-    HolidayDt
-)
-VALUES
-('2022/01/03'),('2022/04/15'),('2022/04/18'),('2022/06/02'),('2022/06/03'),('2022/08/29'),('2022/12/26'),('01-02-2023'),('2023/04/07'),('2023/04/10'),('2023/05/01'),('2023/05/29'),('2023/08/28'),('2023/12/25'),('2023/12/26')
-
-
-
-
-
---SELECT * INTO dbo.PBI_DATE FROM #DATE
---ORDER BY Calender_Date DESC
-
---DROP  TABLE #DATE
-
-
-
-  ALTER TABLE #DATE
-ADD   IsWorkingDay int
-
-
-UPDATE r
-SET  isworkingday=0
-
-FROM #date r
-WHERE  WeekDayName IN ('Saturday','Sunday')
-
-UPDATE r
-SET  IsWorkingDay=0
-
-FROM #DATE r
-INNER JOIN  #bankholidays e
-ON r.Calender_Date=e.HolidayDt
-
-UPDATE r
-SET  IsWorkingDay=1
-
-FROM #date r
-WHERE IsWorkingDay  IS null
 
 
 ;WITH fieldtypes AS
@@ -110,7 +27,7 @@ SELECT DISTINCT uf.fld_name
 		,udv_text
 FROM dbo.udf_fields uf 
 INNER JOIN  dbo.udf_values uv ON uv.field_id=uf.recordid  
-CROSS APPLY(SELECT [Data] splitdata FROM [dbo].[fn_split] (uv.udv_string,' ')
+OUTER APPLY(SELECT [Data] splitdata FROM fn_Split_String (uv.udv_string,' ')
                        )r
 					   WHERE uv.mod_id=2
 					   )uv
@@ -121,16 +38,20 @@ CROSS APPLY(SELECT [Data] splitdata FROM [dbo].[fn_split] (uv.udv_string,' ')
 
 
 --SELECT fld_name ,cas_id,COALESCE(udv_text,CONVERT(VARCHAR(100),udv_date), udc_description ,udv_string)udv_text FROM fieldtypes
---WHERE cas_id=12873
+--WHERE cas_id=13009
 
+
+--DROP TABLE #ctypes_desc
 
 SELECT cas_id,
 	
 [Action Taken (S2)]	,
 [Other Action Taken]	,
 [FC Stage 1 Ext target date]	,
-[Date Investigation Concluded (S2)]	,
+---CONVERT(DATE,[Date Investigation Concluded (S2)],23)
+ [Date Investigation Concluded (S2)]	,
 [Date of contact (S2)]	,
+CONVERT(DATE,[Date Formal Complaint Opened (S2)],23) 
 [Date Formal Complaint Opened (S2)]	,
 [Details of other external agency review]	,
 [Compensation to be awarded?]	,
@@ -148,7 +69,7 @@ SELECT cas_id,
 [Informal Complaint Date Responded]	,
 [Is this Formal Complaint under external enquiry?]	,
 [FC Stage 2 Ext target date]	,
-[Date Final Response Approved (S2)]	,
+CONVERT(DATE,[Date Final Response Approved (S2)],23)[Date Final Response Approved (S2)]		,
 [Compensation Payment Status (S2)]	,
 [Date Investigation Concluded]	,
 [Reason(s) target date not met (S1)]	,
@@ -161,40 +82,46 @@ SELECT cas_id,
 [Training]	,
 [Outcome Confirmed?]	,
 [Outcome]	,
+---CONVERT(DATE,[Date Formal Complaint opened],23)
 [Date Formal Complaint opened]	,
 [Compensation]	,
 [Summarise key change(s) made or to be implemented]	,
+---CONVERT(DATE,[Date Formal Complaint Acknowledged (S2)],23)
 [Date Formal Complaint Acknowledged (S2)]	,
 [Reason(s) target date not met (S2)]	,
 [Action Taken following Outcome]	,
 [Is this Formal Complaint under external review?]	,
 [Reason extension required?]	,
+--CONVERT(DATE,[Date Initial Response / Contact],23)
 [Date Initial Response / Contact]	,
 [Extension required?]	,
 [Compensation to be awarded? (S2)]	,
 [Date approved by Head of Service]	,
 [External enquiry: Who is undertaking the external enquiry?]	,
 [Add supporting info as required]	,
+---CONVERT(DATE,[Date Final Response Sent],23)
 [Date Final Response Sent]	,
 [External review: Who is undertaking this review?]	,
 [Ombudsman Outcomes]	,
 [Residents Panel Outcome]	,
 [Contact from Ombudsman?]	,
+---CONVERT(DATE,[Date Initial Response / Contact (S2)],23) 
 [Date Initial Response / Contact (S2)]	,
+---CONVERT(DATE,[Date Formal Complaint Acknowledged],23)
 [Date Formal Complaint Acknowledged]	,
 [Is Consent required?]	,
-[Date Final Response Sent (S2)]	,
+CONVERT(DATE,[Date Final Response Sent (S2)],23) [Date Final Response Sent (S2)]	,
 [Compensation Type (S2)]	,
 [Lessons learned]	,
 [Payment Type]	,
 [Add supporting info as required (S2)]	,
 [FC Stage 2 Target Date Met?]	
-
+---,cd.[Date Formal Complaint Opened (S2)] ,cd.[Date Final Response Sent (S2)] 
 INTO #ctypes_desc
 FROM 
 (
 SELECT fld_name ,cas_id,COALESCE(udv_text,CONVERT(VARCHAR(100),udv_date), udc_description ,udv_string)udv_text FROM fieldtypes
---WHERE cas_id=12873
+---WHERE cas_id=13009
 )pv
 
 PIVOT (MAX(udv_text) FOR fld_name IN (	
@@ -263,8 +190,10 @@ PIVOT (MAX(udv_text) FOR fld_name IN (
 [FC Stage 2 Target Date Met?]	
 )
 )r
-DECLARE 	@StartDate VARCHAR(20)='2022/04/01',
-	@EndDate VARCHAR(20)='2022/05/31',
+
+--DROP TABLE #ctypes_desc
+DECLARE 	@StartDate VARCHAR(20)='2019/04/01',
+	@EndDate VARCHAR(20)='2022/06/30',
 	@IncType VARCHAR(20)='All'
 
 
@@ -272,6 +201,12 @@ DECLARE 	@StartDate VARCHAR(20)='2022/04/01',
 SELECT --'Summary' AS [Summary]  
 --, 
 DISTINCT
+
+
+
+--mer_sch.scheme_cd,
+--mer_sch.[New Scheme ID],
+
 compl_main.recordid AS [Complaint ID]  
 , compl_main.com_name AS [Person Affected]
 , respmgr.fullname AS [Responsible Manager Name]  -- moved to front  
@@ -304,16 +239,25 @@ compl_main.recordid AS [Complaint ID]
 		ELSE compl_main.com_dcompleted1 
 		END AS [Date Closed (for Formal Complaints only)]  
 
-, LEFT(code_specialty.[description],4) AS [Scheme]  
+,COALESCE( mer_sch.[New Scheme ID],LEFT(code_specialty.DESCRIPTION,4) ) Scheme
 
-, code_com_method.[description] AS [Method of receipt description]  
+---, code_com_method.[description] AS [Method of receipt description]  
 --,[Progress Notes]
 ,cd.*
-,SUM(d.isworkingday) OVER (PARTITION BY compl_main.recordid ORDER BY compl_main.recordid )-1 [Informal Response Time]
-,SUM(ack.isworkingday) OVER (PARTITION BY compl_main.recordid ORDER BY compl_main.recordid )-1 [Acknowledgement_ResponseTime (S1)]
-,SUM(ack2.isworkingday) OVER (PARTITION BY compl_main.recordid ORDER BY compl_main.recordid )-1 [Acknowledgement_ResponseTime (S2)]
-,SUM(rs1.isworkingday) OVER (PARTITION BY compl_main.recordid ORDER BY compl_main.recordid )-1 [[ResponseTime (S1)]
-----,SUM(rs2.isworkingday) OVER (PARTITION BY compl_main.recordid ORDER BY compl_main.recordid )-1 [[ResponseTime (S2)]
+
+,ict.[Informal Response Time]
+
+,[Acknowledgement_ResponseTime (S1)]
+
+,ck2.[Acknowledgement_ResponseTime (S2)]
+
+,rt1.[ResponseTime (S1)]
+,SUM(rs2.isworkingday) OVER (PARTITION BY compl_main.recordid ORDER BY compl_main.recordid )-1 [[ResponseTime (S2)]
+
+INTO Complaintstest
+
+--DROP TABLE Complaints
+
 FROM dbo.compl_main  
 LEFT OUTER JOIN dbo.contacts_main crtdUser
 ON crtdUser.initials = compl_main.createdby
@@ -333,47 +277,29 @@ LEFT OUTER JOIN dbo.code_sub_subject
 ON code_sub_subject.code = compl_main.com_subsubject1  
 LEFT OUTER JOIN dbo.code_com_outcome  
 ON code_com_outcome.code = compl_main.com_outcome1  
-  
-INNER JOIN dbo.code_specialty  
+
+INNER  JOIN dbo.code_specialty 
 ON code_specialty.code = compl_main.com_specialty  
 INNER JOIN dbo.code_com_method  
 ON compl_main.com_method = code_com_method.code 
-INNER JOIN dbo.contacts_main respmgr  
+inner JOIN dbo.contacts_main respmgr  
 ON respmgr.initials = compl_main.com_mgr  
 LEFT OUTER JOIN dbo.contacts_main escmgr  
 ON escmgr.initials = COALESCE(compl_main.com_head, LEFT(compl_main.com_investigator, 3))  
  
---LEFT OUTER JOIN cteProgressNotes  
---ON cteProgressNotes.complaintID = compl_main.recordid  
 LEFT OUTER JOIN dbo.code_com_outcome fcOutcome  
 ON fcOutcome.code = compl_main.com_outcome  
 LEFT OUTER JOIN dbo.code_com_stages  
 ON compl_main.com_curstage = code_com_stages.code 
 INNER JOIN  #ctypes_desc cd ON cd.cas_id=compl_main.recordid 
 
-left JOIN #date d ON d.Calender_Date>=compl_main.com_dreceived AND d.Calender_Date<=cd. [Informal Complaint Date Responded]
-left JOIN #date ack ON ack.Calender_Date>=[Date Formal Complaint opened] AND ack.Calender_Date<=cd.[Date Formal Complaint Acknowledged]
-left JOIN #date ack2 ON ack2.Calender_Date>= [Date Formal Complaint Opened (S2)]AND ack2.Calender_Date<=cd.[Date Formal Complaint Acknowledged (S2)]
-left JOIN #date rs1 ON rs1.Calender_Date>=[Date Formal Complaint opened] AND rs1.Calender_Date<=cd.[Date Final Response Sent]
---left JOIN #date rs2 ON rs2.Calender_Date>=[Date Formal Complaint Opened (S2)] AND rs2.Calender_Date<=cd.[Date Final Response Sent (S2)] -----optimization needed
+OUTER APPLY( SELECT SUM (isworkingday) [Informal Response Time]  FROM dbo.Reportsdate  d WHERE  d.Calender_Date>=compl_main.com_dreceived AND d.Calender_Date<=cd. [Informal Complaint Date Responded])ict
+OUTER apply (SELECT SUM (isworkingday) [Acknowledgement_ResponseTime (S1)] FROM  dbo.Reportsdate ack WHERE ack.Calender_Date>=[Date Formal Complaint opened] AND ack.Calender_Date<=cd.[Date Formal Complaint Acknowledged])ak1
+OUTER APPLY( SELECT SUM (isworkingday) [Acknowledgement_ResponseTime (S2)] FROM   dbo.Reportsdate  ack2 WHERE  ack2.Calender_Date>= [Date Formal Complaint Opened (S2)]AND ack2.Calender_Date<=cd.[Date Formal Complaint Acknowledged (S2)])ck2
+OUTER APPLY (SELECT SUM (isworkingday) [ResponseTime (S1)]   FROM  dbo.Reportsdate rs1 WHERE  rs1.Calender_Date>=[Date Formal Complaint opened] AND rs1.Calender_Date<=cd.[Date Final Response Sent]) rt1
+LEFT JOIN dbo.Reportsdate  rs2 ON rs2.Calender_Date>=[Date Formal Complaint Opened (S2)] AND rs2.Calender_Date<=cd.[Date Final Response Sent (S2)] -----optimization needed
 
-----Date Formal Complaint Acknowledged
---[Date Formal Complaint Acknowledged (S2)]
------ [Dt_FormComp_Opened].udv_date, [Dt_Final_Response_Sent].udv_date) 
+LEFT JOIN  [dbo].[QL_Migrated_Schemes] mer_sch ON mer_sch.scheme_cd=LEFT(code_specialty.DESCRIPTION,4) 
 
 
 
-
-WHERE 
- compl_main.com_dopened >= CAST(@StartDate AS DATETIME)
-AND compl_main.com_dopened<= CAST(@EndDate AS DATETIME)
-AND (CHARINDEX(code_com_type.[description], @incType) > 0 OR @IncType = 'ALL') -- current record type
-
-
-
---SELECT * FROM dbo.udf_fields
---WHERE fld_name LIKE '%final%'
-
-
-
------- [Dt_FormComp_Opened].udv_date, Dt_FormComp_Ackn.udv_date)  

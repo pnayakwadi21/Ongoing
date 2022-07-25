@@ -68,15 +68,11 @@ IF OBJECT_ID(N'tempdb..#BANK_HOLIDAYS')             IS  NOT NULL DROP TABLE #BAN
 IF OBJECT_ID(N'tempdb..#DATE')                      IS  NOT NULL DROP TABLE #DATE
 IF OBJECT_ID(N'tempdb..#CteProgressNotes')          IS  NOT NULL DROP TABLE #CteProgressNotes
 IF OBJECT_ID(N'tempdb..#LastUpdUserLog')            IS  NOT NULL DROP TABLE #LastUpdUserLog
-
 IF OBJECT_ID(N'tempdb..#orghier')            IS  NOT NULL DROP TABLE #orghier
 
+IF OBJECT_ID(N'tempdb..#safeguardingInciflow')            IS  NOT NULL DROP TABLE #safeguardingInciflow
+--DROP TABLE #safeguardingInciflow
 
-
-
-
- SELECT *  into #orghier FROM [1stTouch_Training_DW].[HC21].[OrgHierarchy]  
- SELECT * FROM #orghier 
 
 
 
@@ -89,8 +85,7 @@ FROM(
 SELECT
  DISTINCT 
  uf.fld_name
-        ,   	
-			CASE WHEN RTRIM(LTRIM(uf.fld_name)) IN ('Who have you notified?','Who is the alleged perpetrator?') THEN 		r.splitdata  ELSE    udv_string END udv_string
+        ,   CASE WHEN RTRIM(LTRIM(uf.fld_name)) IN ('Who have you notified?','Who is the alleged perpetrator?') THEN 		r.splitdata  ELSE    udv_string END udv_string
 		,uv.cas_id
 		,uf.mod_id
 		,uv.field_id
@@ -99,7 +94,7 @@ SELECT
 FROM dbo.udf_fields uf 
                     INNER JOIN  dbo.udf_values uv WITH (NOLOCK) ON uv.field_id=uf.recordid  
                      
-                    CROSS APPLY( SELECT Data splitdata FROM dbo.[fn_split] (uv.udv_string,' ')
+                    CROSS APPLY( SELECT Data splitdata FROM fn_Split_String (uv.udv_string,' ')
                        )r
 					   WHERE uv.mod_id=3
 					   )uv
@@ -288,19 +283,13 @@ incidents_main.inc_ourref AS [Record reference]
 , DATENAME(MONTH, incidents_main.inc_dreported) AS [Reported Month]
 
 
---, CASE	WHEN incidents_main.inc_dreported IS NULL THEN ''
---		ELSE	CASE	WHEN DATEPART(HOUR, TRY_CONVERT(TIME,incidents_main.inc_submittedtime)) < 10 THEN '0' + 
---								RTRIM(CAST(DATEPART(HOUR, TRY_CONVERT(TIME,incidents_main.inc_submittedtime)) AS CHAR(2))) 
---						ELSE CAST(DATEPART(HOUR, TRY_CONVERT(TIME,incidents_main.inc_submittedtime)) AS CHAR(2)) END
---				+ ':' + 
---				CASE	WHEN DATEPART(MINUTE, TRY_CONVERT(TIME,incidents_main.inc_submittedtime)) < 10 THEN '0' + 
---								RTRIM(CAST(DATEPART(MINUTE, TRY_CONVERT(TIME,incidents_main.inc_submittedtime)) AS CHAR(2))) 
---						ELSE CAST(DATEPART(MINUTE, TRY_CONVERT(TIME,incidents_main.inc_submittedtime)) AS CHAR(2)) END
---	END AS [Reported Time]
+
 , incidents_main.inc_dopened AS [Date Opened]
 
 , incidents_main.inc_specialty AS [Scheme Code]
-, LEFT(code_specialty.[description],4) AS [Scheme]
+---, LEFT(code_specialty.[description],4) AS [Scheme]
+
+,COALESCE( mer_sch.[New Scheme ID],LEFT(code_specialty.DESCRIPTION,4) ) Scheme
 , COALESCE(code_location.[description], '') AS [Location]
 
 , incidents_main.inc_notes AS [Describe the Incident/Accident]
@@ -316,6 +305,7 @@ incidents_main.inc_ourref AS [Record reference]
 , respmgr.fullname AS [Responsible Manager Name]
 
 ,sf.*
+INTO SafeguardingTest
 FROM dbo.incidents_main WITH (NOLOCK)
 LEFT OUTER JOIN dbo.code_inc_type  WITH (NOLOCK)
 ON code_inc_type.code = incidents_main.inc_type
@@ -345,29 +335,26 @@ ON code_approval_status.module = 'INC' AND code_approval_status.workflow = 1 AND
 LEFT OUTER JOIN dbo.code_location  WITH (NOLOCK)
 ON code_location.code = incidents_main.inc_loctype
 
---LEFT OUTER JOIN cteContribFactors  WITH (NOLOCK)
---ON cteContribFactors.IncidentID = incidents_main.recordid
 LEFT OUTER JOIN dbo.code_inc_conseq conseqInv  WITH (NOLOCK)
 ON conseqInv.code = incidents_main.inc_consequence
 
-
-
 INNER JOIN  #safeguardingInciflow  sf ON sf.cas_id=incidents_main.recordid 
+LEFT JOIN  [dbo].[QL_Migrated_Schemes] mer_sch ON mer_sch.scheme_cd=LEFT(code_specialty.DESCRIPTION,4) 
 
 
 
-WHERE incidents_main.inc_dincident >= CAST(@StartDate AS DATETIME)
- AND incidents_main.inc_dincident <= CAST(@EndDate AS DATETIME)
- AND (CHARINDEX(incidents_main.inc_type, @incType) > 0 OR @IncType = 'ALL')
-
-
-
-
-
+--WHERE incidents_main.inc_dincident >= CAST(@StartDate AS DATETIME)
+-- AND incidents_main.inc_dincident <= CAST(@EndDate AS DATETIME)
+-- AND (CHARINDEX(incidents_main.inc_type, @incType) > 0 OR @IncType = 'ALL')
 
 
 
 
 
 
---SELECT * FROM [1stTouch_Training_DW].[HC21].[OrgHierarchy]
+
+
+
+
+
+ --SELECT COUNT(*)  FROM dbo.incidents_main 

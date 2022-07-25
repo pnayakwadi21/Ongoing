@@ -101,7 +101,7 @@ SELECT cas_id,
 FROM 
 (
 SELECT fld_name ,cas_id,COALESCE(udv_text,CONVERT(VARCHAR(100),udv_date), udc_description ,udv_string)udv_text FROM fieldtypes
-WHERE cas_id=12873
+--WHERE cas_id=12873
 )pv
 
 PIVOT (MAX(udv_text) FOR fld_name IN (	
