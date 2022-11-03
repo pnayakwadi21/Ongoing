@@ -40,6 +40,10 @@ Current level to forward
 
 
 
+----OPERATIONAL MANAGERS:
+
+[USER_ALL_POST_RL_QLROLE] .[QL_Role] IN ( 'HEAD', 'RLSLT' )
+
 
 
 
