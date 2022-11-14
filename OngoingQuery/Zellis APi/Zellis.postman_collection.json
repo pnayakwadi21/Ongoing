@@ -1,0 +1,42 @@
+{"type": "TabularTranslator",
+                                    "mappings": [
+                                        {
+                                            "source": {
+                                                "path": "$['LongDescription']"
+                                            },
+                                            "sink": {
+                                                "name": "LongDescription",
+                                                "type": "String"
+                                            }
+                                        },
+										{
+                                            "source": {
+                                                "path": "$['Code']"
+                                            },
+                                            "sink": {
+                                                "name": "Code",
+                                                "type": "string"
+                                            }
+                                        },
+                                        {
+                                            "source": {
+                                                "path": "$['PostId']"
+                                            },
+                                            "sink": {
+                                                "name": "PostId",
+                                                "type": "String"
+                                            }
+                                        },
+										{
+                                            "source": {
+                                                "path": "$['ShortDescription']"
+                                            },
+                                            "sink": {
+                                                "name": "ShortDescription",
+                                                "type": "string"
+                                            }
+                                        }
+                                    ],
+                                    
+                                   
+                                }
