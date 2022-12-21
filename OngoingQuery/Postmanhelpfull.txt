@@ -1,0 +1,1 @@
+https://api.hcm.zellis.com/hotest/odata/WorkerPosts?$select=WorkerId,PostStartDate,PostEndDate&$filter=PostEndDate gt  2022-07-01&$expand=Worker($select=FirstForename,Surname),Post($select=LongDescription,ShortDescription),Location($select=LongDescription,ShortDescription,Region)

@@ -1,0 +1,10 @@
+let
+    json= Json.Document(File.Contents("D:\Downloads\Xero Datapowerbiforum")),
+    json_tab = Table.FromList(json, Splitter.SplitByNothing()),
+    expand_1 = Table.ExpandRecordColumn(json_tab, "Column1", {"JournalID", "JournalDate", "JournalNumber", "CreatedDateUTC", "SourceID", "SourceType", "JournalLines"}),
+    expand_2 = Table.ExpandRecordColumn(expand_1, "JournalLines", {"JournalLine"}),
+    journal_line_transform = Table.TransformColumns(expand_2, {"JournalLine", each if _ is record then {_}  else _}),
+    expand_3 = Table.ExpandListColumn(journal_line_transform, "JournalLine"),
+    expand_4 = Table.ExpandRecordColumn(expand_3, "JournalLine", {"JournalLineID", "AccountID", "AccountCode", "AccountType", "AccountName", "Description", "NetAmount", "GrossAmount", "TaxAmount", "TaxType", "TaxName"}, {"JournalLineID", "AccountID", "AccountCode", "AccountType", "AccountName", "Description", "NetAmount", "GrossAmount", "TaxAmount", "TaxType", "TaxName"})
+in
+    expand_4

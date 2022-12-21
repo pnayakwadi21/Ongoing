@@ -1,0 +1,57 @@
+let
+tenantID = "71c0b8a3-cb30-44d9-bee9-0711599b39e1",
+clientID="56ce2011-c83e-4177-bf96-c506a5f62eff",
+clientSecret="hNR8Q~jRsNW~~pPRAemcm31-qG9rQUBIiM~29aq9",
+serverID = "0586721c-b894-41da-9777-4cc8f8c321ef",
+authScope="api%3A%2F%2F"& serverID & "%2F.default",
+url = "https://login.microsoftonline.com/",
+relativePath = tenantID & "/oauth2/v2.0/token",
+urlToken = url & relativePath,
+grantType = "client_credentials",
+
+
+
+body = "grant_type=" & grantType & "&client_id=" & clientID & "&client_secret=" & clientSecret & "&Scope=" & authScope,
+GetJson = Web.Contents(url,
+[
+Headers = [#"Content-Type"="application/x-www-form-urlencoded;charset=UTF-8",
+#"Tenant" = tenantID],
+RelativePath = relativePath,
+Content = Text.ToBinary(body)
+]
+),
+
+
+
+FormatAsJson = Json.Document(GetJson),
+AccessToken = FormatAsJson[access_token],
+
+
+
+// #### Get Data using the token #### //
+url2 = "https://api.hcm.zellis.com",
+relativePath2 = "/hotest/odata/WorkerPosts?$select=WorkerId,PostStartDate,PostEndDate&$filter=PostEndDate gt  2022-07-01&$expand=Worker($select=FirstForename,Surname),Post($select=LongDescription,ShortDescription),Location($select=LongDescription,ShortDescription,Region)",
+subscriptionKey = "14cddd7f2bbe4cb3b08bc9bcd4e0f2c9",
+AccessTokenHeader = "Bearer " & AccessToken,
+
+
+
+GetJson1 = Json.Document(Web.Contents(url2 ,[
+Headers=[
+#"Content-Type"="application/json",
+#"Ocp-Apim-Subscription-Key"= subscriptionKey,
+Authorization= AccessTokenHeader
+],
+RelativePath = relativePath2])),
+    value = GetJson1[value],
+    #"Converted to Table" = Table.FromList(value, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"WorkerId",
+ "PostStartDate",
+ "WorkerPostId","Post","Worker"}),
+ expand_2=Table.ExpandRecordColumn( #"Expanded Column1","Post",{"LongDescription",
+ "PostId","ShortDescription"}),
+  expand_3=Table.ExpandRecordColumn( #"expand_2","Worker",{"FirstForename",
+ "Surname"}),
+    Custom1 = #"expand_3"
+in
+    Custom1
