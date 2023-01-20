@@ -1,0 +1,17 @@
+SELECT 
+    *
+FROM OPENROWSET(
+        BULK '/*.csv',
+       DATA_SOURCE= 'Ds_csv_folder',
+        
+        FORMAT = 'CSV', PARSER_VERSION = '2.0',
+        FIRSTROW = 2
+    ) as t
+    
+
+
+    select * from demo.csv_folder_read_test
+
+
+    	CREATE EXTERNAL DATA SOURCE Ds_csv_folder
+	WITH ( LOCATION = 'https://praveenstorage21.blob.core.windows.net/csv-folder')

@@ -1,0 +1,87 @@
+
+
+
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'GoodPool@21';
+CREATE DATABASE SCOPED CREDENTIAL cred1Blobbb14
+WITH IDENTITY = 'praveenstorage21',
+SECRET = 'zJNK6Y37GTZ4qaI8S3hKQH7n3GAcJmb+LWEl23lYbJat4UEYb3g5wInMzMbEkgXNAG7lrFDPX5fX07QNRkn/Ng=='; 
+
+CREATE EXTERNAL DATA SOURCE [Blob3] WITH 
+(	TYPE = HADOOP,
+	LOCATION = N'wasbs://praveen-container@praveenstorage21.blob.core.windows.net',
+	CREDENTIAL = [cred1Blobbb14]
+);
+GO
+CREATE EXTERNAL FILE FORMAT TextFileFormat1
+WITH
+(
+    FORMAT_TYPE = DELIMITEDTEXT,
+    FORMAT_OPTIONS
+    (
+        FIELD_TERMINATOR = ',',
+STRING_DELIMITER = '0x22',
+FIRST_ROW = 2, 
+USE_TYPE_DEFAULT = False
+    )
+);
+
+
+
+CREATE SCHEMA ext;
+GO
+CREATE SCHEMA stg;
+GO
+
+
+
+CREATE external table ext.containertablecsv
+(
+Country varchar(200),
+Region varchar(200),
+Town varchar(200)
+
+)
+
+
+WITH (LOCATION='/praveencontainercsv.csv',
+    DATA_SOURCE = Blob3,  
+    FILE_FORMAT = TextFileFormat1,
+    REJECT_TYPE = VALUE,
+    REJECT_VALUE = 0
+);
+
+
+
+
+
+
+
+
+https://praveenstorage21.blob.core.windows.net/praveen-container/synapse_servlesssqlpoolsrc_copy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

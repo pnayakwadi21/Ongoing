@@ -1,0 +1,3 @@
+FreeSqlVm:AdminDetails
+Username:praveen.nayakwadip
+Pss:GoodFreeSql@21
